@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Choose Your Own Squatch</string>
+    <string name="title_activity_main">Choose Your Own Squatch</string>
+    <string name="package_name">com.sasquatchlabs.cyoa</string>
+    <string name="custom_url_scheme">com.sasquatchlabs.cyoa</string>
+</resources>
