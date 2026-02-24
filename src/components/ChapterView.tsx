@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useStory } from '../context/StoryContext';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
 import { GET_CHAPTER_BY_SLUG } from '../graphql/queries';
 import { Share2 } from 'lucide-react';
 import type { GetChapterBySlugResponse, GetChapterBySlugVariables, ContentfulChoice } from '../types/contentful';
@@ -26,11 +26,12 @@ const ChapterView: React.FC = () => {
     }
 
     // Replace placeholders
-    const processText = (text: string) => {
+    const processText = (text: string | undefined | null) => {
+        if (!text) return '';
         return text
-            .replaceAll('{{userName}}', userName)
-            .replaceAll('{{friendName}}', friendName)
-            .replaceAll('{{squatchName}}', squatchName);
+            .replaceAll('{{userName}}', userName || 'Adventurer')
+            .replaceAll('{{friendName}}', friendName || 'Buddy')
+            .replaceAll('{{squatchName}}', squatchName || 'Sasquatch');
     };
 
     const handleCustomSubmit = (e: React.FormEvent) => {
@@ -44,7 +45,7 @@ const ChapterView: React.FC = () => {
         try {
             if (navigator.share) {
                 await navigator.share({
-                    title: 'Choose Your Own Squatch',
+                    title: 'Select A Squatch',
                     text: textToShare,
                     url: window.location.href,
                 });
@@ -68,7 +69,7 @@ const ChapterView: React.FC = () => {
                 <h2 className="text-3xl font-bold mb-6 text-amber-500">{chapter.title}</h2>
 
                 <div className="prose prose-invert prose-lg mb-8 leading-relaxed text-stone-300">
-                    <p className="whitespace-pre-wrap">{processText(chapter.text)}</p>
+                    <p className="whitespace-pre-wrap">{processText(chapter.content)}</p>
                     {customParagraph && chapter.allowCustomInput && (
                         <p className="mt-4 p-4 bg-stone-900/50 border-l-4 border-amber-500 italic text-amber-200 animate-pulse">
                             "{customParagraph}"

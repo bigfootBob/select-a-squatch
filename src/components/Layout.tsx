@@ -1,15 +1,28 @@
 import React, { type ReactNode } from 'react';
 import sasquatchImg from '../assets/Sasquatch-CYOA.png';
+import backgroundImageJpg from '../assets/images/sas-back.jpg';
 
 interface LayoutProps {
     children: ReactNode;
     headerTitle?: string;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, headerTitle = "Choose Your Own Squatch" }) => {
+const Layout: React.FC<LayoutProps> = ({ children, headerTitle = "Select A Squatch" }) => {
+    const backgroundStyle = {
+        backgroundImage: `linear-gradient(rgba(12, 10, 9, 0.88), rgba(12, 10, 9, 0.88)), url(${backgroundImageJpg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor: '#0c0a09'
+    };
+
     return (
-        <div className="min-h-screen bg-stone-900 text-amber-50 font-serif flex flex-col">
-            <header className="p-4 bg-stone-800 border-b-4 border-amber-700 shadow-lg text-center relative overflow-hidden">
+        <div
+            className="min-h-screen text-amber-50 font-serif flex flex-col"
+            style={backgroundStyle}
+        >
+            <header className="p-4 bg-stone-900/80 backdrop-blur-md border-b-4 border-amber-700/40 shadow-xl text-center relative overflow-hidden">
                 <div className="absolute inset-0 opacity-20 pointer-events-none">
                     {/* Abstract forest pattern or texture could go here */}
                 </div>
@@ -19,7 +32,7 @@ const Layout: React.FC<LayoutProps> = ({ children, headerTitle = "Choose Your Ow
                 </div>
             </header>
 
-            <main className="flex-grow container mx-auto px-4 py-8 max-w-2xl flex flex-col gap-6">
+            <main className="flex-grow container mx-auto px-4 py-8 max-w-2xl flex flex-col gap-6 relative z-10">
                 {children}
             </main>
 
