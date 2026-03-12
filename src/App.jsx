@@ -12,7 +12,7 @@ function App() {
                 <Layout>
                     <Routes>
                         <Route path="/" element={<IntroForm />} />
-                        <Route path="/chapter/:chapterId" element={<ChapterView />} />
+                        <Route path="/chapter/:sceneId" element={<ChapterView />} />
                     </Routes>
                 </Layout>
             </Router>
